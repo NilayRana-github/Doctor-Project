@@ -1,0 +1,20 @@
+{% extends 'admin_layout.html' %}
+
+{% block title %}Admin Profile{% endblock %}
+
+{% block content %}
+<h1>Your Profile Page</h1>
+<div>
+    <p>Your account details are below:</p>
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td>{{ admin_account['admin_name'] }}</td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td>{{ admin_account['admin_email'] }}</td>
+        </tr>
+    </table>
+</div>
+{% endblock %}

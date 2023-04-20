@@ -1,0 +1,43 @@
+{% extends "admin_layout.html" %}
+{% block body %}
+  <div class="row">
+    <div class="col-md-4 offset-md-4">
+      <h1 style="color:red">Edit Doctor Details</h1>
+      <div class="card card-body">
+        <form action="/update/{{doctor.id}}" method="POST">
+          <div class="form-group">
+            <label><b>Enter Doctor Name: </b></label>
+            <input type="text" name="doctor_name" value="{{doctor.doctor_name}}" placeholder="Enter Doctor Name" class="form-control">
+          </div>
+          <div class="form-group">
+            <label><b>Enter Doctor Specification: </b></label>
+            <input type="text" name="doctor_specification" value="{{doctor.doctor_specification}}" placeholder="Enter Doctor Specification" class="form-control">
+          </div>
+          <div class="form-group">
+            <label><b>Enter Doctor Building Name: </b></label>
+            <input type="text" name="building_name" value="{{doctor.building_name}}" placeholder="Enter Doctor Building Name" class="form-control">
+          </div>
+          <div class="form-group">
+            <label><b>Enter Doctor Building Floor: </b></label>
+            <input type="number" name="building_floor" value="{{doctor.building_floor}}" placeholder="Enter Doctor Building Floor" class="form-control">
+          </div>
+          <div class="form-group">
+            <label><b>Enter Doctor Location: </b></label>
+            <input type="text" name="doctor_location" value="{{doctor.doctor_location}}" placeholder="Enter Doctor Location" class="form-control">
+          </div>
+          <div class="form-group">
+            <label><b>Enter Doctor Mobile Number: </b></label>
+            <input type="tel" name="doctor_mobile" value="{{doctor.doctor_mobile}}" placeholder="Enter Doctor Mobile Number" class="form-control">
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">
+              Update
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+

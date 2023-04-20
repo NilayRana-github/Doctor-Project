@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    <meta charset='utf-8' />
+    <title>Mapbox Directions with Language Selector</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.js"></script>  
+    <!-- Mapbox Direction script and link  -->
+    <link href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css' rel='stylesheet' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.js'></script>
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
+      #language-selector {
+        position: absolute;
+        left: 300px;
+        bottom: 0px;
+        z-index: 1;
+      }
+    </style>
+
+  </head>
+  <body>
+
+    <div id='map'></div>
+    <div id='language-selector'>
+      <label for='language'>Language:</label>
+      <select id='language'>
+        <option value='en'>English</option>
+        <option value='fr'>Français</option>
+        <option value='es'>Español</option>
+        <option value='de'>Deutsch</option>
+        <option value='it'>Italiano</option>
+        <option value='pt'>Português</option>
+        <option value='ru'>Русский</option>
+        <option value='zh'>中文</option>
+        <option value='ja'>日本語</option>
+        <option value='ko'>한국어</option>
+        <option value='he'>hebrew</option>
+      </select>
+    </div>
+    
+    <script>
+         
+      // Set up Mapbox map
+      mapboxgl.accessToken = 'pk.eyJ1IjoibmlsYXktd2Vsb2dpY2FsIiwiYSI6ImNsZjZjMzRreDE1eG8zeW50YWplOHBvYTYifQ.Wk6TflXVfKBFSDBlxzpZHg';
+      var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [-122.4194, 37.7749],
+        language: 'es',
+        zoom: 13
+      });
+
+      // Update the map language when the user selects a language from the dropdown
+      document.getElementById('language').addEventListener('change', function(event) {
+        map.setLanguage(event.target.value);
+      });
+
+      // Set up Mapbox Directions API with default language
+      var directions = new MapboxDirections({
+        accessToken: mapboxgl.accessToken,
+        unit: 'metric',
+        language: 'en'
+      });
+
+      directions.setOrigin([77.587384, 12.917639]);
+      directions.setDestination([77.583367, 12.917789]);
+      map.addControl(directions, 'top-left');
+
+      // add an event listener to the language selector dropdown
+      document.getElementById('language').addEventListener('change', function(event) {
+        // update the language property of the directions object with the selected value
+        directions.setLanguage(language);
+      });
+           
+
+    </script>
+  </body>
+</html>
+
+    <!--  -->
+
+
+  
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Building 3D View</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css" />
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js"></script>
+  <style>
+
+    #map {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+    }
+
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoibmlsYXktd2Vsb2dpY2FsIiwiYSI6ImNsZjZjMzRreDE1eG8zeW50YWplOHBvYTYifQ.Wk6TflXVfKBFSDBlxzpZHg';
+
+
+    var map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v11', // Change the style to your desired one
+      center: [-122.42, 37.77], // Set the center coordinates of the map
+      zoom: 15 // Set the initial zoom level
+    });
+
+    map.on('load', function() {
+      // Add the 3D building layer
+      map.addLayer({
+        'id': '3d-building',
+        'source': 'composite',
+        'source-layer': 'building',
+        'filter': ['==', 'extrude', 'true'],
+        'type': 'fill-extrusion',
+        'minzoom': 15,
+        'paint': {
+          'fill-extrusion-color': '#aaa',
+          'fill-extrusion-height': [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
+            15,
+            0,
+            15.05,
+            ['get', 'height']
+          ],
+          'fill-extrusion-base': [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
+            15,
+            0,
+            15.05,
+            ['get', 'min_height']
+          ],
+          'fill-extrusion-opacity': 0.6
+        }
+      });
+      
+    // Add indoor map source
+    map.addSource('indoor', {
+      'type': 'vector',
+      'url': 'mapbox://mapbox.mapbox-indoor-v1'
+    });
+
+    // Add indoor map layer
+    map.addLayer({
+      'id': 'indoor-map',
+      'type': 'line',
+      'source': 'indoor',
+      'source-layer': 'indoor',
+      'paint': {
+        'line-color': '#fff',
+        'line-opacity': 0.6,
+        'line-width': 1
+      }
+    });
+  });
+
+
+
+    // Adding the map controls
+    // Full screen control
+    map.addControl(new mapboxgl.FullscreenControl(), 'top-right');
+
+    // Navigation Control
+    // map.addControl(new mapboxgl.NavigationControl(), 'top-right');
+
+    // 3d view navigation
+    map.addControl(new mapboxgl.NavigationControl({ visualizePitch: true }), 'top-right');
+
+    // Live Location control
+    map.addControl(new mapboxgl.GeolocateControl({
+      positionOptions: {
+          enableHighAccuracy: true
+      },
+      trackUserLocation: true,
+      showUserHeading: true
+    }), 'top-right');
+
+  </script>
+</body>
+</html> -->
+
+
+<!-- 'pk.eyJ1IjoibmlsYXktd2Vsb2dpY2FsIiwiYSI6ImNsZjZjMzRreDE1eG8zeW50YWplOHBvYTYifQ.Wk6TflXVfKBFSDBlxzpZHg'; -->

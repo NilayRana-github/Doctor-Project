@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content1 %}
+<h1>Profile Page</h1>
+<div>
+    <p>Your account details are below:</p>
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td>{{ account['patient_name'] }}</td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td>{{ account['patient_email'] }}</td>
+        </tr>
+        <tr>
+            <td>Disease:</td>
+            <td>{{ account['patient_disease'] }}</td>
+        </tr>
+        <tr>
+            <td>City:</td>
+            <td>{{ account['patient_city'] }}</td>
+        </tr>
+    </table>
+</div>
+{% endblock %}

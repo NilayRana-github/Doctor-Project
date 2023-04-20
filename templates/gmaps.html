@@ -1,0 +1,279 @@
+{{doctor_location}}
+{{lat}}
+{{log}}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Map Application</title>
+
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v7.2.2/ol.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='resources/layerswitcher/ol-layerswitcher.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/map_style.css') }}">
+
+</head>
+<body>
+
+    <div class="grid-container">
+
+        <div class="header">
+            <nav class="navbar navbar-expand-lg">
+
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+                      aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+
+              <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                  <a class="navbar-brand" href="{{ url_for('home') }}"><h2 style="color: Orange;"><i>Web Mapping Application</i></h2></a>
+
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+
+                  <li class="nav-item active">
+                    <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+                  </li>
+
+                  <li class="nav-item active">
+                    <a class="nav-link" href="{{ url_for('profile') }}">Profile</a>
+                  </li>
+
+                  <li class="nav-item active">
+                    <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                  </li>
+
+                </ul>
+
+                <div class="search-container">
+                    <input id="search-input" type="text" placeholder="Search...">
+                    <button id="search-button" type="submit"><i class="fa fa-search"></i></button>
+                </div>
+
+              </div>
+            </nav>
+
+        </div>
+
+        <div class="left">
+            <div class="toc">
+                <h3>Layers</h3>
+
+                <input type="checkbox" id="osm" name="osm" value="Open Street Map" checked onchange="toggleLayer(event);">
+                <label for="osm">Open Street Map</label>
+                <br>
+
+                <input type="checkbox" id="satellite-checkbox1" class="satellite-checkbox" />
+                <label for="satellite-checkbox1">Satellite View</label>
+                <br>
+
+                <input type="checkbox" id="satellite-checkbox2" class="satellite-checkbox" />
+                <label for="satellite-checkbox2">Roads</label>
+                <br>
+
+                <input type="checkbox" id="satellite-checkbox3" class="satellite-checkbox" />
+                <label for="satellite-checkbox3">Canvas Dark</label>
+                <br>
+
+                <input type="checkbox" id="satellite-checkbox4" class="satellite-checkbox" />
+                <label for="satellite-checkbox4">Canvas Light</label>
+                <br>
+
+                <h4>Lat Long</h4>
+                <div id="mouse-position"></div>
+
+                <br><br><br><br><br>
+
+                <h4>Scale Bar</h4><br><br><br>
+                <div id="scale-line"></div><br>
+
+                <h4>See Your Live Location</h4>
+                <div>
+                    <button id="live-location-btn"  class="btn btn-primary" onclick="getLocation()">
+                    <i class="fa fa-map-marker"></i></button>
+                </div><br>
+
+<!--                <h4>Show Direction</h4>-->
+<!--                <div>-->
+<!--                    <button onclick="getDirections()" class="btn btn-primary">Get Directions</button>-->
+<!--                </div><br>-->
+
+                <h4>Change Mode</h4>
+                <div>
+                    <button id="dark-mode-toggle" class="btn btn-primary">Switch Mode</button>
+                </div><br>
+
+            </div>
+        </div>
+
+        <div class="right">
+            <div id="map" data-latitude="{{lat}}" data-longitude={{log}}></div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/ol@v7.2.2/dist/ol.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='js/map_js.js') }}"></script>
+
+    <!--Bootstrap script-->
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+
+<!--    <meta charset="UTF-8">-->
+<!--    <meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>View Map Application</title>-->
+
+<!--    &lt;!&ndash; Bootstrap css &ndash;&gt;-->
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"-->
+<!--          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
+
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v7.2.2/ol.css">-->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+<!--    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">-->
+<!--    <link rel="stylesheet" href="{{ url_for('static', filename='resources/layerswitcher/ol-layerswitcher.css') }}">-->
+<!--    <link rel="stylesheet" href="{{ url_for('static', filename='css/map_style.css') }}">-->
+
+<!--</head>-->
+<!--<body>-->
+
+<!--    <div class="grid-container">-->
+
+<!--        <div class="header">-->
+<!--            <nav class="navbar navbar-expand-lg">-->
+
+<!--              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"-->
+<!--                      aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--                <span class="navbar-toggler-icon"></span>-->
+<!--              </button>-->
+
+<!--              <div class="collapse navbar-collapse" id="navbarTogglerDemo01">-->
+<!--                  <a class="navbar-brand" href="{{ url_for('home') }}"><h2 style="color: Orange;"><i>Web Mapping Application</i></h2></a>-->
+
+<!--                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">-->
+
+<!--                  <li class="nav-item active">-->
+<!--                    <a class="nav-link" href="{{ url_for('home') }}">Home</a>-->
+<!--                  </li>-->
+
+<!--                  <li class="nav-item active">-->
+<!--                    <a class="nav-link" href="{{ url_for('profile') }}">Profile</a>-->
+<!--                  </li>-->
+
+<!--                  <li class="nav-item active">-->
+<!--                    <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>-->
+<!--                  </li>-->
+
+<!--                </ul>-->
+
+<!--                <div class="search-container">-->
+<!--                    <input id="search-input" type="text" placeholder="Search...">-->
+<!--                    <button id="search-button" type="submit"><i class="fa fa-search"></i></button>-->
+<!--                </div>-->
+
+<!--              </div>-->
+<!--            </nav>-->
+
+<!--        </div>-->
+
+<!--        <div class="left">-->
+<!--            <div class="toc">-->
+<!--                <h3>Layers</h3>-->
+
+<!--                <input type="checkbox" id="osm" name="osm" value="Open Street Map" checked onchange="toggleLayer(event);">-->
+<!--                <label for="osm">Open Street Map</label>-->
+<!--                <br>-->
+
+<!--                <input type="checkbox" id="satellite-checkbox1" class="satellite-checkbox" />-->
+<!--                <label for="satellite-checkbox1">Satellite View</label>-->
+<!--                <br>-->
+
+<!--                <input type="checkbox" id="satellite-checkbox2" class="satellite-checkbox" />-->
+<!--                <label for="satellite-checkbox2">Roads</label>-->
+<!--                <br>-->
+
+<!--                <input type="checkbox" id="satellite-checkbox3" class="satellite-checkbox" />-->
+<!--                <label for="satellite-checkbox3">Canvas Dark</label>-->
+<!--                <br>-->
+
+<!--                <input type="checkbox" id="satellite-checkbox4" class="satellite-checkbox" />-->
+<!--                <label for="satellite-checkbox4">Canvas Light</label>-->
+<!--                <br>-->
+
+<!--                <h4>Lat Long</h4>-->
+<!--                <div id="mouse-position"></div>-->
+
+<!--                <br><br><br><br><br>-->
+
+<!--                <h4>Scale Bar</h4><br><br><br>-->
+<!--                <div id="scale-line"></div><br>-->
+
+<!--                <h4>See Your Live Location</h4>-->
+<!--                <div>-->
+<!--                    <button id="live-location-btn"  class="btn btn-primary" onclick="getLocation()">-->
+<!--                    <i class="fa fa-map-marker"></i></button>-->
+<!--                </div><br>-->
+
+<!--&lt;!&ndash;                <h4>Show Direction</h4>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <button onclick="getDirections()" class="btn btn-primary">Get Directions</button>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div><br>&ndash;&gt;-->
+
+<!--                <h4>Change Mode</h4>-->
+<!--                <div>-->
+<!--                    <button id="dark-mode-toggle" class="btn btn-primary">Switch Mode</button>-->
+<!--                </div><br>-->
+
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="right">-->
+<!--&lt;!&ndash;            <div id="map" data-latitude="{{lat}}" data-longitude={{log}} data-location="{{doctor_location}}"></div>&ndash;&gt;-->
+<!--            <div id="map"></div>-->
+<!--        </div>-->
+
+<!--    </div>-->
+
+<!--    <script src="https://cdn.jsdelivr.net/npm/ol@v7.2.2/dist/ol.js"></script>-->
+<!--    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
+<!--&lt;!&ndash;    <script src="{{ url_for('static', filename='js/map_js.js') }}"></script>&ndash;&gt;-->
+<!--    <script src="{{ url_for('static', filename='js/gmaps.js') }}"></script>-->
+
+<!--    &lt;!&ndash;Bootstrap script&ndash;&gt;-->
+
+<!--    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
+
+
+
+

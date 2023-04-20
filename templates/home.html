@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block content1 %}
+
+  <div class="col-md-8">
+      <h1 class="h2">Dashboard</h1>
+      <p>Welcome back, {{ patientname }}!</p>
+      <br>
+  </div>
+
+  <div class="col-md-8">
+      <h1 class="h2">Find the Doctor Name</h1>
+      <form method="POST" action="{{ url_for('search_doctor') }}">
+        <input type="text" name="doctor_name" placeholder="Search for a doctor...">
+        <button type="submit"><i class="fa fa-search"></i></button>
+      </form>
+  </div>
+
+  {% if error_message %}
+    <div class="col-md-8">
+        <br><br>
+      <h1 style="color:red">{{ error_message }}</h1>
+    </div>
+  {% endif %}
+
+  {% if doctor_found %}
+
+  <br><br>
+
+  <div class="col-md-8">
+      <table id="example" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+          <tr>
+              <th>Name</th>
+              <th>Specialization</th>
+              <th>Building Name</th>
+              <th>Building Floor</th>
+              <th>Mobile Number</th>
+              <th>Address</th>
+              <th>View map by open layer</th>
+              <th>View map by mapbox layer</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+              <td>{{ doctor_found[0][1] }}</td>
+              <td>{{ doctor_found[0][2] }}</td>
+              <td>{{ doctor_found[0][3] }}</td>
+              <td>{{ doctor_found[0][4] }}</td>
+              <td>{{ doctor_found[0][6] }}</td>
+              <td>{{ doctor_found[0][5] }}</td>
+              <td width="130">
+                  <form method="POST" action="{{ url_for('map') }}">
+                    <input type="text" name="doctor_location" value="{{ doctor_found[0][5] }}"><br><br>
+                    <button type="submit" class="btn btn-primary">View Doctor Location</button>
+                  </form>
+              </td>
+               <td width="130">
+                  <form method="POST" action="{{ url_for('mapbox_map') }}">
+                    <input type="text" name="doc_loc" value="{{ doctor_found[0][5] }}"><br><br>
+                    <button type="submit" class="btn btn-primary">View Doctor Location</button>
+                  </form>
+              </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  {% endif %}
+
+{% endblock %}
+
+
+

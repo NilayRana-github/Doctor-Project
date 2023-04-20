@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>My Mapbox</title>
+    <meta name="viewport" content="intial-scale=1,maximum-scale=1,user-scalable=no">
+
+    <!--Map box script and css-->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
+	<script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>	
+
+	<!-- Mapbox Direction script and link  -->
+    <link href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css' rel='stylesheet' />
+	<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.js'></script>
+
+	<!-- Bootstrap css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Font awesome css -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!--Static css-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='map_box/mapbox_style.css') }}">
+
+    <!-- Geocoder script and link -->
+ 	<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+	<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
+
+</head>
+
+<body>
+
+	<!-- Mapbox map -->
+	<div id="map" data-latitude="{{lat}}" data-longitude={{log}}></div>
+
+	<!-- Changing layer  -->
+	<center>
+		<div id="menu">
+			<input id="satellite-streets-v12" type="radio" name="rtoggle" value="satellite" checked="checked">
+			<!-- See a list of Mapbox-hosted public styles at -->
+			<!-- https://docs.mapbox.com/api/maps/styles/#mapbox-styles -->
+			<label for="satellite-streets-v12">satellite streets</label>
+			<input id="light-v11" type="radio" name="rtoggle" value="light">
+			<label for="light-v11">light</label>
+			<input id="dark-v11" type="radio" name="rtoggle" value="dark">
+			<label for="dark-v11">dark</label>
+			<input id="streets-v12" type="radio" name="rtoggle" value="streets">
+			<label for="streets-v12">streets</label>
+			<input id="outdoors-v12" type="radio" name="rtoggle" value="outdoors">
+			<label for="outdoors-v12">outdoors</label>
+		</div>
+	</center>
+
+    <!-- Direction button -->
+	<div id="direction">
+		<button class="btn btn-success" id="directions-btn">Ride me to the directions</button>
+	</div>
+
+	<div id="control-panel">
+      <button id="start-btn">Start</button>
+	  <button id="stop-btn">Stop</button>
+	  <button id="resume-btn">Resume</button>
+	  <button id="move-right-btn">Move Right</button>
+	  <button id="move-left-btn">Move Left</button>
+    </div>
+
+	<!-- I-Frame  -->
+ 	<iframe src="{{url_for('mapbox_iframe', lat=lat, log=log) }}"></iframe>
+
+ 	<!-- All Scripts -->
+ 	<!--Bootstrap script-->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+	<!-- Turf script -->
+    <script src='https://api.mapbox.com/mapbox.js/plugins/turf/v3.0.11/turf.min.js'></script>
+
+    <!-- Three lib -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.135.0/build/three.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/three@0.135.0/examples/js/loaders/GLTFLoader.js"></script>
+
+    <!-- Main js -->
+    <script src="{{ url_for('static', filename='map_box/mapboxjs.js') }}"></script>
+
+</body>
+</html>
+

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Admin Page</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+    </head>
+
+  <body>
+<!--    <nav class="navbar navbar-dark bg-dark">-->
+<!--      <a class="navbar-brand" href="/">Doctor's location Project</a>-->
+<!--    </nav>-->
+
+     <nav class="site-header sticky-top navbar navbar-dark bg-dark py-1">
+      <div class="container d-flex flex-column flex-md-row justify-content-between">
+          <a class="py-2 d-none d-md-inline-block" href="{{ url_for('index') }}"><i class="fas fa-home"></i> Home</a>
+          <a class="py-2 d-none d-md-inline-block" href="{{ url_for('admin_profile') }}"><i class="fas fa-user-circle"></i> Profile</a>
+          <a class="py-2 d-none d-md-inline-block" href="{{ url_for('admin_logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </div>
+    </nav>
+
+    <div class="container pt-4">
+      {% block body %}
+      {% endblock %}
+    </div>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <div class="col-12">
+               {% block content %}{% endblock %}
+            </div>
+          </div>
+        </main>
+
+    <script>
+
+    const btnDelete= document.querySelectorAll('.btn-delete');
+    if(btnDelete) {
+      const btnArray = Array.from(btnDelete);
+      btnArray.forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          if(!confirm('Are you sure you want to delete it?')){
+            e.preventDefault();
+          }
+        });
+      })
+    }
+
+    $(document).ready(function() {
+        $('#example').DataTable({
+          "aLengthMenu": [[3, 5, 10, 25, -1], [3, 5, 10, 25, "All"]],
+            "iDisplayLength": 3
+           }
+        );
+    } );
+
+    </script>
+
+  </body>
+</html>
+

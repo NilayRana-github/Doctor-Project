@@ -1,0 +1,85 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+	<title>Iframe</title>
+</head>
+<body>
+ <h1>I-frame page</h1>
+
+ <h1>{{lat}}</h1>
+ <h1>{{log}}</h1>
+
+
+</body>
+</html>
+ -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Mapbox</title>
+
+    <meta name="viewport" content="intial-scale=1,maximum-scale=1,user-scalable=no">
+
+    <!--Map box script and css-->
+	<script src='https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.js'></script>
+	<link href='https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.css' rel='stylesheet' />
+
+	<!-- Mapbox Direction script and link -->
+    <link href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css' rel='stylesheet' />
+	<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.js'></script>
+
+	<!-- Turf script -->
+    <script src='https://api.mapbox.com/mapbox.js/plugins/turf/v3.0.11/turf.min.js'></script>
+
+	<!-- Bootstrap css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Font awesome css -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!--Static css-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='map_box/iframe_mapbox.css') }}">
+
+</head>
+<body>
+
+	<div id="map" data-latitude="{{lat}}" data-longitude={{log}}></div>
+
+	<!-- <center>
+		<div id="menu">
+			<input id="satellite-streets-v12" type="radio" name="rtoggle" value="satellite" checked="checked">
+			<label for="satellite-streets-v12">satellite streets</label>
+			<input id="light-v11" type="radio" name="rtoggle" value="light">
+			<label for="light-v11">light</label>
+			<input id="dark-v11" type="radio" name="rtoggle" value="dark">
+			<label for="dark-v11">dark</label>
+			<input id="streets-v12" type="radio" name="rtoggle" value="streets">
+			<label for="streets-v12">streets</label>
+			<input id="outdoors-v12" type="radio" name="rtoggle" value="outdoors">
+			<label for="outdoors-v12">outdoors</label>
+		</div>
+	</center>
+ -->
+
+	<div id="direction">
+		<button id="directions-btn"><i class="fa fa-car"></i></button>
+	</div>
+
+	<!--Bootstrap script-->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+	<!-- Three lib -->
+
+	<script src="https://cdn.jsdelivr.net/npm/three@0.135.0/build/three.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/three@0.135.0/examples/js/loaders/GLTFLoader.js"></script>
+
+	<!-- Main js -->
+	<script src="{{ url_for('static', filename='map_box/iframe_mapboxjs.js') }}"></script>
+
+</body>
+</html>
+
+

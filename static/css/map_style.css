@@ -1,0 +1,407 @@
+* {
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #171717;
+    color: #f5f5f5;
+}
+
+/* Dark mode styles */
+body.dark-mode {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+
+.header {
+    background-color: #171717;
+    color: #333333;
+}
+
+h4,h3{
+ color: #ff4136;
+}
+
+#map {
+    width: 100vw;
+    height: 100vh;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-areas:
+        'header header'
+        'left right'
+        'footer footer';
+}
+
+.header {
+    grid-area: header;
+    font-size: 25px;
+    height: 70px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.left {
+    grid-area: left;
+    width: 22vw;
+    border: 5px solid #009688;
+    max-height: calc(100vh - 70px);
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align: justify;
+    position: relative;
+    scrollbar-width: thin; /* adjust thickness of scrollbar */
+    scrollbar-color: #ffb900 #2196f3; /* adjust color of scrollbar */
+}
+
+/* for webkit browsers */
+.left::-webkit-scrollbar {
+    width: 10px; /* adjust width of scrollbar */
+}
+
+.left::-webkit-scrollbar-track {
+    background: #FF6347; /* adjust background color of scrollbar track */
+}
+
+.left::-webkit-scrollbar-thumb {
+    background-color: #ffb900; /* adjust background color of scrollbar thumb */
+    border-radius: 10px; /* adjust border radius of scrollbar thumb */
+}
+
+.toc {
+    margin-left: 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+}
+
+.right {
+    grid-area: right;
+    width: 78vw;
+    max-height: calc(100vh - 70px);
+    border: 5px solid #9b4dca;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align:justify;
+    position: relative;
+    scrollbar-width: thin; /* adjust thickness of scrollbar */
+    scrollbar-color: #ffb900 #2196f3; /* adjust color of scrollbar */
+}
+
+/* for webkit browsers */
+.right::-webkit-scrollbar {
+    width: 10px; /* adjust width of scrollbar */
+}
+
+.right::-webkit-scrollbar-track {
+    background: #FF6347; /* adjust background color of scrollbar track */
+}
+
+.right::-webkit-scrollbar-thumb {
+    background-color: #ffb900; /* adjust background color of scrollbar thumb */
+    border-radius: 10px; /* adjust border radius of scrollbar thumb */
+}
+
+
+
+.footer {
+    grid-area: footer;
+    height: 10px;
+}
+
+#mouse-position{
+    position: absolute;
+    left: 100px;
+
+}
+
+#scale-line {
+    position: absolute;
+    font-family: "Public Sans", Verdana, sans-serif;
+	font-size: 18px;
+	color: DarkSlateGray;
+}
+
+/* Style for the search bar */
+.search-container {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    z-index: 100;
+}
+
+.search-container input[type=text] {
+    padding: 10px;
+    font-size: 17px;
+    border: none;
+    width: 300px;
+    height: 50px;
+    background: #f1f1f1;
+    border-radius: 25px;
+    margin-right: 10px;
+}
+
+.search-container button {
+    float: right;
+    padding: 10px 20px;
+    margin-right: 10px;
+    background: #2196F3;
+    color: white;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+    border-radius: 25px;
+}
+
+.search-container button:hover {
+    background: #0b7dda;
+}
+
+.search-container::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* Style for the magnify icon */
+.fa-search {
+    margin-top: 5px;
+    margin-left: 5px;
+    font-size: 20px;
+}
+
+
+.ol-popup {
+    position: absolute;
+    background-color: white;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #cccccc;
+    bottom: 12px;
+    left: -50px;
+    min-width: 280px;
+}
+
+.ol-popup:after, .ol-popup:before {
+    top: 100%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+.ol-popup:after {
+    border-top-color: white;
+    border-width: 10px;
+    left: 48px;
+    margin-left: -10px;
+}
+.ol-popup:before {
+    border-top-color: #cccccc;
+    border-width: 11px;
+    left: 48px;
+    margin-left: -11px;
+}
+.ol-popup-closer {
+    text-decoration: none;
+    position: absolute;
+    top: 2px;
+    right: 8px;
+}
+.ol-popup-closer:after {
+    content: "✖";
+}
+
+ .myButton {
+    background-color:rgba(22, 85, 167, 0.6);
+    color: white;
+    font-weight: 700;
+    text-align: center;
+    height: 25px;
+    width: 25px;
+    border-radius: 2px;
+    border: none;
+    align-items: center;
+}
+
+.myButton:hover{
+  background-color: rgb(0, 60, 136, 1);
+}
+
+.myButton.clicked{
+  background-color: rgba(22, 170, 35, 0.8);
+}
+
+.myButton.clicked:hover{
+background-color: rgba(22, 170, 35, 1);
+}
+
+.homeButtonDiv{
+  position: relative;
+  display: block;
+  margin: 10px auto auto 10px;
+}
+
+.fsButtonDiv {
+  position: relative;
+  display: block;
+  margin: 1px auto auto 10px;
+}
+
+
+.featureInfoDiv {
+  position: relative;
+  display: block;
+  margin: 1px auto auto 10px;
+}
+
+.lengthButtonDiv {
+  position: relative;
+  display: block;
+  margin: 1px auto auto 10px;
+}
+
+.areaButtonDiv {
+  position: relative;
+  display: block;
+  margin: 1px auto auto 10px;
+}
+
+/* start : Measure styling */
+
+.ol-tooltip {
+position: relative;
+background: rgba(0, 0, 0, 0.5);
+border-radius: 4px;
+color: white;
+padding: 4px 8px;
+opacity: 0.7;
+white-space: nowrap;
+font-size: 12px;
+}
+.ol-tooltip-measure {
+opacity: 1;
+font-weight: bold;
+}
+.ol-tooltip-static {
+background-color: #ffcc33;
+color: black;
+border: 1px solid white;
+}
+.ol-tooltip-measure:before,
+.ol-tooltip-static:before {
+border-top: 6px solid rgba(0, 0, 0, 0.5);
+border-right: 6px solid transparent;
+border-left: 6px solid transparent;
+content: "";
+position: absolute;
+bottom: -6px;
+margin-left: -7px;
+left: 50%;
+}
+.ol-tooltip-static:before {
+border-top-color: #ffcc33;
+}
+
+/* end : Measure styling */
+
+
+.ol-dragbox {
+border: 2px dashed grey;
+background-color: rgba(200, 200, 200, 0.6);
+}
+
+.ziButtonDiv {
+position: relative;
+display: block;
+margin: 1px auto auto 10px;
+}
+
+.zoButtonDiv {
+position: relative;
+display: block;
+margin: 1px auto auto 10px;
+}
+
+.zoomInButtonDiv, .zoomOutButtonDiv {
+    position: relative;
+    display: block;
+    margin: 10px auto auto 10px;
+}
+
+.handButtonDiv{
+    position: relative;
+    display: block;
+    margin: 10px auto auto 10px;
+}
+
+
+.attQueryDiv {
+position: absolute;
+display: none;
+margin: 70px auto auto 45px;
+/* padding: 10px; */
+width: 250px;
+/* height: 250px; */
+background-color: rgba(255, 255, 255, 0.9);
+font-family: inherit;
+font-size: 1em;
+line-height: 1.45;
+border-radius: 2px;
+border: 1px solid #d1d1d1;
+box-shadow: 0px 0px 15px rgba(252, 213, 213, 0.5);
+/* z-index: 4; */
+/* overflow: scroll; */
+}
+
+#headerDiv{
+background-color: midnightblue;
+height: 35px;
+}
+
+#headerDiv label {
+color: white;
+}
+
+.attQueryDiv select {
+width: 225px;
+height: 35px;
+border: 1px solid lightgrey;
+border-radius: 3px;
+margin: 0px auto 0px 10px;
+}
+
+.attQueryDiv input {
+width: 225px;
+height: 35px;
+border: 1px solid lightgrey;
+border-radius: 3px;
+margin: 0px auto 0px 10px;
+}
+
+.attQueryDiv label {
+color: grey;
+margin: 10px 10px 0px 10px;
+}
+
+.attQueryDiv label:nth-child(1) {
+margin: 10px;
+font-weight: bold;
+}
+
+.attQryRun {
+color: white;
+background-color: green;
+border-radius: 3px;
+border: 1px solid darkgreen;
+height: 35px;
+width: 50px;
+margin: 10px;
+}
+
